@@ -9,15 +9,20 @@ ps = PorterStemmer()
 
 
 def download_nltk_resources():
-    try:
-        nltk.data.find("tokenizers/punkt")
-    except LookupError:
-        nltk.download("punkt")
+    resources = [
+        "punkt",
+        "punkt_tab",
+        "stopwords"
+    ]
 
-    try:
-        nltk.data.find("corpora/stopwords")
-    except LookupError:
-        nltk.download("stopwords")
+    for resource in resources:
+        try:
+            nltk.data.find(
+                f"tokenizers/{resource}"
+                if "punkt" in resource else f"corpora/{resource}"
+            )
+        except LookupError:
+            nltk.download(resource)
 
 download_nltk_resources()
 
