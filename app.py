@@ -1,11 +1,26 @@
+import nltk
 import streamlit as st
 import pickle
 import string
 from nltk.corpus import stopwords
-import nltk
 from nltk.stem.porter import PorterStemmer
 
 ps = PorterStemmer()
+
+
+def download_nltk_resources():
+    try:
+        nltk.data.find("tokenizers/punkt")
+    except LookupError:
+        nltk.download("punkt")
+
+    try:
+        nltk.data.find("corpora/stopwords")
+    except LookupError:
+        nltk.download("stopwords")
+
+download_nltk_resources()
+
 
 
 def transform_text(text):
